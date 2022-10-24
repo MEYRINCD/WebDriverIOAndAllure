@@ -1,0 +1,43 @@
+name: CypressAndCucumber
+
+on:
+  workflow_dispatch
+  
+jobs:
+     Run_test:
+        runs-on: windows-latest
+        strategy:
+            matrix:
+             node-version: [14.17.0]
+             
+        steps:
+         - uses: action/checkout@v2
+         - name: Use Node.js ${{ matrix.node-version }}
+           uses: actions/checkout@v2
+           with:
+            node-version: ${{ matrix.node-version }}
+         - name: update node manager
+           run: npm i npm@latest
+         - name: install all dependencies
+           run: npm i
+         - name: run test
+           continue-on-error: true
+           run: npm run wdio
+         - name: Create Report
+           if: always()
+           run: npm run allureRefresh
+         - name: Upload artifact allure-report
+           uses: actions/upload-artifact@v1
+           if: always()
+           with:
+             name: allure-report
+             path: ./allure-report
+         - name: Deploy to pages
+           if: always()
+           uses: peaceiris/actions-gh-pages@v3.7.3
+           with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_branch: gh-pages
+              publish_dir: allure-report/
+             
+ 
