@@ -1,0 +1,24 @@
+{
+  "name": "webrdriverandallure",
+  "version": "1.0.0",
+  "description": "Project with wdio E2E test and allure report",
+  "main": "index.js",
+  "scripts": {
+    "allureRefresh": "allure generate --clean --output allure-report",
+    "wdio": "wdio run wdio.conf.js",
+    "RunSeleniumGrid": "docker-compose -f ./selenium-4-grid.yml"
+  },
+  "author": "Vlad Lukianets",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^7.25.2",
+    "@wdio/cli": "^7.25.2",
+    "@wdio/local-runner": "^7.25.2",
+    "@wdio/mocha-framework": "^7.25.2",
+    "@wdio/selenium-standalone-service": "^7.25.1",
+    "@wdio/spec-reporter": "^7.25.1",
+    "chromedriver": "^106.0.1",
+    "wdio-chromedriver-service": "^8.0.0",
+    "wdio-docker-service": "^3.2.1"
+  }
+}
