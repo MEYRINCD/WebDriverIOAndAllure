@@ -20,6 +20,12 @@ jobs:
            run: npm i npm@latest
          - name: install all dependencies
            run: npm i
+         - name: install webdriver
+           run: npm init wdio
+         - name: install Allure
+           run: npm install @wdio/allure-reporter
+         - name: Install selenium standalone
+           run: npm install @wdio/selenium-standalone-service
          - name: run test
            continue-on-error: true
            run: npm run wdio
