@@ -22,7 +22,7 @@ jobs:
          - name: install all dependencies
            run: npm install
          - name: Run docker-compose
-           run: docker-compose -f ./selenium-4-grid.yml up
+           run: docker-compose up -d
          - name: run test
            continue-on-error: true
            run: npm run wdio
