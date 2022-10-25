@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "allureRefresh": "allure generate --clean --output allure-report",
-    "wdio": "wdio run wdio.conf.js",
+    "wdio": "npx wdio run config/wdio.conf.js",
     "RunSeleniumGrid": "docker-compose -f ./selenium-4-grid.yml",
     "test:chrome": "npx wdio ./wdio.chrome.conf.js",
     "test:firefox": "npx wdio ./wdio.firefox.conf.js"
