@@ -20,6 +20,7 @@
     "@wdio/selenium-standalone-service": "^7.25.1",
     "@wdio/spec-reporter": "^7.25.1",
     "chromedriver": "^106.0.1",
+    "cross-env": "^7.0.3",
     "wdio-chromedriver-service": "^8.0.0",
     "wdio-docker-service": "^3.2.1"
   }
