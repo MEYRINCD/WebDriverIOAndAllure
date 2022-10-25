@@ -11,7 +11,8 @@ jobs:
              node-version: [14.17.0]
              
         steps:
-         - uses: actions/checkout@v2.5.0
+         - name: Code Checkout
+           uses: actions/checkout@v2.5.0
          - name: Use Node.js ${{ matrix.node-version }}
            uses: actions/checkout@v2.5.0
            with:
@@ -19,11 +20,9 @@ jobs:
          - name: update node manager
            run: npm i npm@latest
          - name: install all dependencies
-           run: npm i
-         - name: install Allure
-           run: npm install @wdio/allure-reporter
-         - name: Install selenium standalone
-           run: npm install @wdio/selenium-standalone-service
+           run: npm install
+         - name: Run docker-compose
+           run: docker-compose up -d
          - name: run test
            continue-on-error: true
            run: npm run wdio
@@ -31,17 +30,24 @@ jobs:
            if: always()
            run: npm run allureRefresh
          - name: Upload artifact allure-report
-           uses: actions/upload-artifact@v1
+           uses: actions/upload-artifact@v2
            if: always()
            with:
              name: allure-report
-             path: ./allure-report
-         - name: Deploy to pages
+             path: allure-report/
+         - name: Get Allure history
+           uses: actions/checkout@v2
            if: always()
-           uses: peaceiris/actions-gh-pages@v3.7.3
+           continue-on-error: true
            with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              publish_branch: gh-pages
-              publish_dir: allure-report/
+                ref: gh-pages
+                path: gh-pages
+         - name: Deploy report to Github Pages
+           if: always()
+           uses: peaceiris/actions-gh-pages@v2
+           env:
+                PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                PUBLISH_BRANCH: gh-pages
+                PUBLISH_DIR: allure-history
              
  
